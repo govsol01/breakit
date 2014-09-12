@@ -1,19 +1,19 @@
 <test team="47" type="correctness">
   <commands>
     <command>
-      <program>logappend</program>
+      <program>logappend.py</program>
       <args>-T 1 -K secret -A -E Waldo bug1</args>
     </command>
     <command>
-      <program>logappend</program>
+      <program>logappend.py</program>
       <args>-T 2 -K secret -L -E Waldo bug1</args>
     </command>
     <command>
-      <program>logappend</program>
+      <program>logappend.py</program>
       <args>-T 3 -K secret -A -E Waldo bug1</args>
     </command>
     <command>
-      <program>logread</program>
+      <program>logread.py</program>
       <args>-K secret -S bug1</args>
       <output>Waldo</output>
     </command>
