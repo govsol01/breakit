@@ -1,0 +1,67 @@
+George Uecker(10:40:26 AM): I guess we can leave this room up until the break-it phase is over?  
+    Thomas Castelli(10:40:41 AM): I think so  
+    George Uecker(10:41:12 AM): need to get the other folks to sign in to Q and join as well  
+    10:42:29 AM -  Thomas Castelli has invited Susan L Shebel to the meeting.  
+    10:42:59 AM -  Thomas Castelli has invited Thomas Kenny to the meeting.  
+    10:43:21 AM -  Thomas Castelli has invited Steven E Verovsky to the meeting.  
+    Thomas Castelli(10:43:51 AM): Okay, so I invited the others to this chat room  
+    George Uecker(10:44:24 AM): do they need to be signed in to Q to get the invitation?  
+    Thomas Castelli(10:44:42 AM): I think they'll get it when they sign in  
+    11:10:48 AM -  Susan Shebel (AT&T CORP.) has joined the meeting  
+    Thomas Castelli(11:25:04 AM): Are people allowed to enter and leave rooms at the same time?  
+    Thomas Castelli(11:25:34 AM): For example, I've got the following sequence of parameters (after I put Bill in the gallery and had him enter room 1) which gave me no errors:  
+    Thomas Castelli(11:25:39 AM): -T13 -K f00baR -L -E Bill -R 1 log1
+-T14 -K f00baR -A -E Bill -R A log1
+-T14 -K f00baR -A -E Bill -R log1 log1
+-T14 -K f00baR -A -E Bill -R log1
+-T14 -K f00baR -A -E Bill -R 2 log1
+-T14 -K f00baR -L -E Bill -R 2 log1
+-T14 -K f00baR -A -E Bill -R 3 log1
+  
+    Thomas Castelli(11:25:58 AM): (well, except for the invald room "numbers")  
+    Thomas Castelli(11:26:53 AM): ubuntu@ubuntu:~/46/code/build$ ./logread -K f00baR -R -E Bill log1
+1
+  
+    Thomas Castelli(11:27:02 AM): which doesn't show Bill entering rooms 2 or 3  
+    Thomas Castelli(11:57:32 AM): Well, I can't seem to reproduce that bug anyway  
+    Thomas Castelli(1:41:56 PM): Team #69 does not have any source code, only executables.  
+    Thomas Castelli(2:25:10 PM): Never mind, the "executables" are python scripts  
+    Susan Shebel(2:27:56 PM): Was looking at 68 and it looks like they decrypt the file, write it back to disk, process and then encrypt. Don't know if it's possible timing wise but is there someway to replace the file between the time it's encrypted and decrypted?  
+    Thomas Castelli(2:32:29 PM): Do they write it back to disk with the same filename?  
+    George Uecker(2:32:49 PM): Maybe write a program to monitor the file size with inotify or similar, and immediately overwrite it when the decrypted version gets written back to disk? Do they maintain a checksum or anything to detect outside changes?  
+    Thomas Castelli(2:32:54 PM): If not, you can watch for the appearance of the decrypted file and then replace it  
+    Thomas Castelli(2:34:16 PM): 69 seems to write an MD5 hash of the token to the first line of the log file. MD5 is crackable and susceptible to collisions. Going to try to break it and read the tokens in the conf directory.  
+    Thomas Castelli(2:50:52 PM): From the very end of https://www.builditbreakit.org/static/doc/f2014/spec/BREAK.html:  
+    Thomas Castelli(2:51:09 PM): "Both integrity and confidentiality violations are considered vulnerabilities by the scoring system. Any correctness violation that results in a crash or the printing of "I pwn you" to stderr counts as a vulnerability as well. All other correctness violations are not scored as vulnerabiltiies. If you have reason to argue that other correctness violations should be considered security relevant, include the justification in your error report."  
+    Thomas Castelli(2:51:13 PM): (emphasis mine)  
+    Thomas Castelli(2:51:22 PM): So should we not even bother looking for correctness problems?  
+    Thomas Castelli(2:54:47 PM): (Answer: still look for them, the builder teams lose points for correctness issues)  
+    George Uecker(2:56:43 PM): correctness violations may not be scored as vulnerabilities, but they are still scored as correctness violations, right? Notice that a few of the teams have the full testing framework as part of their git repo, and presumably ran through the provided correctness tests, whereas other teams maybe didn't get that far. So it might be beneficial to simply apply the provided correctness tests to each submission and see if that results in any failures.  
+    George Uecker(2:57:42 PM): It looks like team 67 is counting on basic Java Serialization to protect their tokens and other data...  
+    Thomas Castelli(3:06:11 PM): Is it possible to have an employee and a guest with the same name?  
+    Thomas Castelli(3:06:25 PM): Like, Employee Phil enters the gallery, then Guest Phil (different person) does?  
+    Thomas Castelli(3:06:41 PM): Because I think I found that 69 doesn't seem to distinguish between the two on log read  
+    Susan Shebel(3:07:30 PM): Attempted to run: " ./logappend -T1 -Ksue -Gguest1 -A log1" on 68 (log1 doesn't exist) and get invalid. Is there something wrong with this command? I would assume employees and guests could have the same name. 68 keeps separate hashes for employees and guests.  
+    Thomas Castelli(3:09:22 PM): I don't think so, but I found for 69 I had to space the parameters (./logappend -T 1 -K sue -G guest1 -A log1) or else I'd get "invalid." Not sure if that's a correctness violation or not  
+    George Uecker(3:10:29 PM): HA! 67 keeps track of whether the person is a Guest or an Employee, but only checks the name (not the type) in the compareTo method.  
+    Thomas Castelli(3:15:47 PM): Can we check in bug reports to the repository yet? I'm following a file naming format of bug1_69.xml / bug1_69.txt where 69 is the team number and 1 means it's the first bug I wrote up. Is that good?  
+    George Uecker(3:32:55 PM): How about leading with the team name, like so: team69_bug1.txt.  
+    Thomas Castelli(3:33:03 PM): Works for me  
+    George Uecker(3:35:22 PM): I was likewise able to verify that team 67 doesn't differentiate between Employees and Guests properly. I added an Employee named JOHN and a guest named JOHN, but the log only shows 1 JOHN in the gallery.  
+    Thomas Castelli(3:36:11 PM): I added a guest named Phil and an employee named Phil, had them both enter the gallery, put Guest Phil in room 2 and Employee Phil in room 1, and I got this output:  
+    Thomas Castelli(3:36:19 PM): ubuntu@ubuntu:~/69/code/build$ ./logread -K xyzzy -S bug2
+Phil
+Phil
+1: Phil
+2: Phil
+  
+    Thomas Castelli(3:36:38 PM): ubuntu@ubuntu:~/69/code/build$ ./logread -K xyzzy -R -G Phil bug2
+1,2
+ubuntu@ubuntu:~/69/code/build$ ./logread -K xyzzy -R -E Phil bug2
+1,2
+  
+    George Uecker(3:37:15 PM): Team 67 also doesn't support HTML output from logread, which is a requirement  
+    Thomas Castelli(3:37:27 PM): This was not specified in the spec that you can have employees and guests with the same name, but it's a reasonable assumption  
+    Susan Shebel(3:37:44 PM): This "./logappend -T1 -Ksue -EFred -A -R1 log3" (log3 empty) causes a segmentation fault on 68.  
+    George Uecker(3:38:05 PM): woops, my bad - had the arguments in the wrong order  
+    Thomas Castelli(3:38:26 PM): Ahh I missed the HTML output requirement. Will have to try it.
