@@ -1,1 +1,2 @@
-Correctness violation: It is not possible for someone to re-enter the gallery once they have left.
+Correctness violation: It should not be possible to have someone enter the gallery at negative time, and 
+then to query the database at negative time.
