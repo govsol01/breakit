@@ -1,0 +1,4 @@
+Correctness violation: 
+It is not possible for someone to re-enter the gallery once they have left the gallery. 
+Correctness violation:
+./logappend -B file does not work. It requires you to put in a timpestamp which is not part of the specifications.
