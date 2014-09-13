@@ -1,0 +1,16 @@
+<test team="57" type="correctness">
+  <commands>
+    <command>
+      <program>logappend</program>
+      <args>-T 1 -K secret -A -E Steven bug1</args>
+    </command>
+    <command>
+      <program>logappend</program>
+      <args>-T 2 -K secret -L -E Steven bug1</args>
+    </command>
+    <command>
+      <program>logappend</program>
+      <args>-T 3 -K secret -A -E Steven bug1</args>
+    </command>
+  </commands>
+</test>
