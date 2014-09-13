@@ -1,0 +1,1 @@
+Correctness violation: It is not possible for someone to re-enter the gallery once they have left.
