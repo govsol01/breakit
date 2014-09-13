@@ -2,7 +2,7 @@
   <commands>
     <command>
       <program>logappend</program>
-      <args>-T 1 -K secret -A -E Ben bug1</args>
+      <args>-T -11 -K secret -A -E Ben bug1</args>
     </command>
     <command>
       <program>logappend</program>
