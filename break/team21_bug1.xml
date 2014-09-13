@@ -12,5 +12,9 @@
       <program>logappend</program>
       <args>-T 3 -K secret -A -E Ben bug1</args>
     </command>
+    <command>
+      <program>logread</program>
+      <args>-K secret -A -L -1 -U 3 bug1</args>
+    </command>
   </commands>
 </test>
