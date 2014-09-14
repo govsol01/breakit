@@ -1,0 +1,27 @@
+<test team="21" type="correctness">
+  <commands>
+    <command> 
+      <program>logappend</program>
+      <args>-K s -T 0 -A -G Steven log1</args>
+    </command>
+    <command> 
+      <program>logappend</program>
+      <args>-K s -T 1 -A -G Alex log1</args>
+    </command>
+    <command> 
+      <program>logappend</program>
+      <args>-K s -T 2 -A -E Ben log1</args>
+    </command>
+    <command> 
+      <program>logappend</program>
+      <args>-K s -T 3 -A -G Steven -R 5 log1</args>
+    </command>
+    <command> 
+      <program>logappend</program>
+      <args>-K s -T 3 -A -E Ben -R 2 log1</args>
+    </command>
+  </commands>
+</test>
+
+
+
