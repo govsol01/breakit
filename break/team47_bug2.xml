@@ -2,19 +2,19 @@
   <commands>
     <command>
       <program>logappend.py</program>
-      <args>-T 1 -K secret -A -E Waldo bug1</args>
+      <args>-T 1 -K secret -A -E Waldo bug2</args>
     </command>
     <command>
       <program>logappend.py</program>
-      <args>-T 2 -K secret -L -E Waldo bug1</args>
+      <args>-T 2 -K secret -L -E Waldo bug2</args>
     </command>
     <command>
       <program>logappend.py</program>
-      <args>-T 3 -K secret -A -E Waldo bug1</args>
+      <args>-T 3 -K secret -A -E Waldo bug2</args>
     </command>
     <command>
       <program>logread.py</program>
-      <args>-K secret -S bug1</args>
+      <args>-K secret -S bug2</args>
       <output>Waldo</output>
     </command>
   </commands>
