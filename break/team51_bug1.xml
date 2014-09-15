@@ -1,0 +1,9 @@
+<test team="51" type="correctness">
+  <commands>
+    <command>
+      <program>logread</program>
+      <args>-K anyKey -S logNameWhereFileDoesNotExist</args>
+      <output>invalid</output>
+    </command>
+  </commands>
+</test>
