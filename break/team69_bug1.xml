@@ -16,6 +16,6 @@
       <program>logread</program>
       <args>-K f00baR -R -E Bill bug1</args>
       <output>1</output>
-    <command>
+    </command>
   </commands>
 </test>
