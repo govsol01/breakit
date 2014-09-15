@@ -1,6 +1,4 @@
 #!/usr/bin/python
-#import pickle
-#from os import path, _exit
 import sys
 import random
 import zlib
