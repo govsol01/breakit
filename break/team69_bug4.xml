@@ -5,5 +5,5 @@
       <args>-T A -K t0ken -A -E Jill bug4</args>
       <output>invalid</output>
     </command>
-  <commands>
+  </commands>
 </test>
