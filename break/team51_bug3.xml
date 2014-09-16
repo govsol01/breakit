@@ -1,0 +1,10 @@
+<test team="51" type="correctness">
+  <commands>
+    <command>
+      <program>logappend</program>
+      <args>-B team51_bug3.batch</args>
+      <output>invalid</output>
+      <return>-1</return>
+    </command>
+  </commands>
+</test>
