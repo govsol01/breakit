@@ -1,0 +1,13 @@
+<test team="51" type="correctness">
+  <commands>
+    <command>
+      <program>logappend</program>
+      <args>-T 1 -K testKey -E adam -A testLog</args>
+    </command>
+    <command>
+      <program>logappend</program>
+      <args>-T 1 -K testKey -E adam -A -R 1 testLog</args>
+      <output>invalid</output>
+    </command>
+  </commands>
+</test>
