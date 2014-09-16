@@ -4,7 +4,7 @@
       <program>logappend</program>
       <args>-B team51_bug3.batch</args>
       <output>invalid</output>
-      <return>-1</return>
+      <returncode>-1</returncode>
     </command>
   </commands>
 </test>
