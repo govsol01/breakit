@@ -2,7 +2,11 @@
   <commands>
     <command>
       <program>logappend</program>
-      <args> </args>
+      <args>-T 1 -K key -E Adam -A logTest</args>
+    </command>
+    <command>
+      <program>logappend</program>
+      <args>-T 1 -K key -E Adam -A logTest</args>
       <output>invalid</output>
       <returncode>-1</returncode>
     </command>

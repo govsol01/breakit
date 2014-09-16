@@ -1,2 +1,1 @@
-Correctness violation: It should not be possible to have someone enter the gallery at negative time, and 
-then to query the database at negative time.
+Correctness violation: logappend should state invalid when no arugments are provided instead of the information provided which could be useful to a hacker
